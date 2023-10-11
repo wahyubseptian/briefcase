@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wahyubseptian_briefcase/theme/change_theme.dart';
 import 'package:wahyubseptian_briefcase/theme/theme.dart';
+import 'package:wahyubseptian_briefcase/tools/extension.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+              'here im using a custom capitalize extension for string'
+                  .capitalize(),
+            ),
             const Text(
               'Briefcase App',
             ),
