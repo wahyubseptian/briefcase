@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wahyubseptian_briefcase/theme/change_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wahyubseptian_briefcase/page/home/home.dart';
+import 'package:wahyubseptian_briefcase/page/welcome/welcome_page.dart';
 import 'package:wahyubseptian_briefcase/theme/theme.dart';
-import 'package:wahyubseptian_briefcase/tools/extension.dart';
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final homeRedirect = prefs.getBool("isFirstTime") ?? false;
+  runApp(MyApp(
+    redirectHome: homeRedirect,
+  ));
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  bool? redirectHome = false;
+  MyApp({
+    super.key,
+    this.redirectHome,
+  });
 
   // This widget is the root of your application.
   @override
@@ -22,69 +33,7 @@ class MyApp extends StatelessWidget {
           themeMode: themeProvider.themeMode,
           darkTheme: MyTheme.darkTheme,
           theme: MyTheme.lightTheme,
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          home: redirectHome! ? const MyHomePage() : const WelcomeScreen(),
         );
       });
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        actions: const [ChangeTheme()],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'here im using a custom capitalize extension for string'
-                  .capitalize(),
-            ),
-            const Text(
-              'Briefcase App',
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.airplanemode_inactive_sharp),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
 }

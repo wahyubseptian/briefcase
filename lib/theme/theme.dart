@@ -15,7 +15,11 @@ class MyTheme {
     scaffoldBackgroundColor: Colors.grey.shade900,
     colorScheme: const ColorScheme.dark(),
     primaryColor: Colors.black,
-    iconTheme: const IconThemeData(color: Colors.white, opacity: 0.8),
+    iconTheme: const IconThemeData(
+      color: Colors.white,
+      opacity: 0.8,
+    ),
+    secondaryHeaderColor: Colors.amberAccent,
   );
 
   static final lightTheme = ThemeData(
@@ -23,5 +27,6 @@ class MyTheme {
     colorScheme: const ColorScheme.light(),
     iconTheme: const IconThemeData(color: Colors.blue, opacity: 0.8),
     primaryColor: Colors.white,
+    secondaryHeaderColor: Colors.pink,
   );
 }
