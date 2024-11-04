@@ -52,4 +52,12 @@ extension StringExtensions on String {
   double? toDoubleOrNull() {
     return double.tryParse(this);
   }
+
+  String convertPhoneNumber(String phoneNumber) {
+    if (phoneNumber.startsWith('0')) {
+      return '62${phoneNumber.substring(1)}';
+    }
+
+    return phoneNumber;
+  }
 }
